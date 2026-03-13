@@ -44,6 +44,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { auth, db } from './firebase';
 import { scanReceipt, ExtractedWarranty } from './services/geminiService';
 import { cn } from './lib/utils';
+import { AdBanner } from './components/AdBanner';
 
 // --- Types ---
 interface Item {
@@ -319,43 +320,59 @@ export default function App() {
                 <p className="text-stone-400">No items found</p>
               </motion.div>
             ) : (
-              filteredItems.map((item) => {
-                const status = getStatus(item.expiryDate);
-                return (
-                  <motion.div
-                    key={item.id}
-                    layout
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    className="group bg-white p-5 rounded-3xl border border-stone-100 shadow-sm hover:shadow-md transition-all flex items-center gap-4"
-                  >
-                    <div className="w-14 h-14 bg-stone-50 rounded-2xl flex items-center justify-center text-stone-400 group-hover:bg-stone-900 group-hover:text-white transition-colors">
-                      <CategoryIcon category={item.category} className="w-7 h-7" />
-                    </div>
-                    
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-stone-900 truncate mb-1">{item.name}</h3>
-                      <div className="flex items-center gap-3">
-                        <span className={cn("text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-md", status.color)}>
-                          {status.label}
-                        </span>
-                        <span className="text-xs text-stone-400 flex items-center gap-1">
-                          <Calendar className="w-3 h-3" />
-                          {format(parseISO(item.expiryDate), 'MMM d, yyyy')}
-                        </span>
-                      </div>
-                    </div>
-
-                    <button 
-                      onClick={() => handleDeleteItem(item.id)}
-                      className="p-2 text-stone-200 hover:text-red-500 transition-colors"
+              <>
+                {filteredItems.map((item, index) => (
+                  <React.Fragment key={item.id}>
+                    <motion.div
+                      layout
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      className="group bg-white p-5 rounded-3xl border border-stone-100 shadow-sm hover:shadow-md transition-all flex items-center gap-4"
                     >
-                      <Trash2 className="w-5 h-5" />
-                    </button>
-                  </motion.div>
-                );
-              })
+                      <div className="w-14 h-14 bg-stone-50 rounded-2xl flex items-center justify-center text-stone-400 group-hover:bg-stone-900 group-hover:text-white transition-colors">
+                        <CategoryIcon category={item.category} className="w-7 h-7" />
+                      </div>
+                      
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-medium text-stone-900 truncate mb-1">{item.name}</h3>
+                        <div className="flex items-center gap-3">
+                          <span className={cn("text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-md", getStatus(item.expiryDate).color)}>
+                            {getStatus(item.expiryDate).label}
+                          </span>
+                          <span className="text-xs text-stone-400 flex items-center gap-1">
+                            <Calendar className="w-3 h-3" />
+                            {format(parseISO(item.expiryDate), 'MMM d, yyyy')}
+                          </span>
+                        </div>
+                      </div>
+
+                      <button 
+                        onClick={() => handleDeleteItem(item.id)}
+                        className="p-2 text-stone-200 hover:text-red-500 transition-colors"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </button>
+                    </motion.div>
+                    
+                    {/* Insert ad after every 5 items */}
+                    {(index + 1) % 5 === 0 && (
+                      <div className="py-4">
+                        <p className="text-[9px] uppercase tracking-widest text-stone-300 mb-2 ml-4">Sponsored</p>
+                        <AdBanner slot="1234567890" className="rounded-2xl" />
+                      </div>
+                    )}
+                  </React.Fragment>
+                ))}
+                
+                {/* Final ad at the bottom if there are items */}
+                {filteredItems.length > 0 && (
+                  <div className="py-8">
+                    <p className="text-[9px] uppercase tracking-widest text-stone-300 mb-2 ml-4">Sponsored</p>
+                    <AdBanner slot="0987654321" className="rounded-2xl" />
+                  </div>
+                )}
+              </>
             )}
           </AnimatePresence>
         </div>

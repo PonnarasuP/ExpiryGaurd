@@ -3,7 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
+    <title>ExpiryGuard</title>
+    <script>
+      (function() {
+        const envId = "%VITE_ADSENSE_CLIENT_ID%";
+        const defaultId = "ca-pub-9304808102028896";
+        const clientId = (envId && envId !== "%" + "VITE_ADSENSE_CLIENT_ID" + "%" && envId !== "undefined" && envId !== "") ? envId : defaultId;
+        
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${clientId}`;
+        script.crossOrigin = "anonymous";
+        document.head.appendChild(script);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
