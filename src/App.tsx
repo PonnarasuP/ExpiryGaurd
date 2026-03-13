@@ -380,7 +380,10 @@ export default function App() {
                 {(index + 1) % 5 === 0 && (
                   <div className="py-4">
                     <p className="text-[9px] uppercase tracking-widest text-stone-300 mb-2 ml-4">Sponsored</p>
-                    <AdBanner slot="1234567890" className="rounded-2xl" />
+                    <AdBanner 
+                      slot={import.meta.env.VITE_ADSENSE_SLOT_1 || "1234567890"} 
+                      className="rounded-2xl" 
+                    />
                   </div>
                 )}
               </motion.div>
@@ -396,7 +399,10 @@ export default function App() {
                 className="py-8"
               >
                 <p className="text-[9px] uppercase tracking-widest text-stone-300 mb-2 ml-4">Sponsored</p>
-                <AdBanner slot="0987654321" className="rounded-2xl" />
+                <AdBanner 
+                  slot={import.meta.env.VITE_ADSENSE_SLOT_2 || "0987654321"} 
+                  className="rounded-2xl" 
+                />
               </motion.div>
             )}
           </AnimatePresence>
