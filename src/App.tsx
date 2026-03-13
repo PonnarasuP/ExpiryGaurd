@@ -45,6 +45,7 @@ import { auth, db } from './firebase';
 import { scanReceipt, ExtractedWarranty } from './services/geminiService';
 import { cn } from './lib/utils';
 import { AdBanner } from './components/AdBanner';
+import { PrivacyPolicy } from './components/PrivacyPolicy';
 
 // --- Types ---
 interface Item {
@@ -86,6 +87,7 @@ export default function App() {
   const [isAdding, setIsAdding] = useState(false);
   const [isScanning, setIsScanning] = useState(false);
   const [scanLoading, setScanLoading] = useState(false);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   
   // Form state
   const [newItem, setNewItem] = useState({
@@ -544,6 +546,35 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Footer for AdSense Compliance */}
+      <footer className="max-w-xl mx-auto px-6 py-12 text-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex items-center gap-4 text-[10px] uppercase tracking-widest font-bold text-stone-400">
+            <button 
+              onClick={() => setShowPrivacyModal(true)} 
+              className="hover:text-stone-900 transition-colors"
+            >
+              Privacy Policy
+            </button>
+            <span className="w-1 h-1 bg-stone-200 rounded-full" />
+            <button 
+              onClick={() => setShowPrivacyModal(true)} 
+              className="hover:text-stone-900 transition-colors"
+            >
+              Terms of Service
+            </button>
+          </div>
+          <p className="text-[10px] text-stone-300">
+            &copy; {new Date().getFullYear()} ExpiryGuard. All rights reserved.
+          </p>
+        </div>
+      </footer>
+
+      <PrivacyPolicy 
+        isOpen={showPrivacyModal} 
+        onClose={() => setShowPrivacyModal(false)} 
+      />
     </div>
   );
 }
