@@ -322,14 +322,15 @@ export default function App() {
             ) : (
               <>
                 {filteredItems.map((item, index) => (
-                  <React.Fragment key={item.id}>
-                    <motion.div
-                      layout
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      className="group bg-white p-5 rounded-3xl border border-stone-100 shadow-sm hover:shadow-md transition-all flex items-center gap-4"
-                    >
+                  <motion.div
+                    key={item.id}
+                    layout
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    className="space-y-4"
+                  >
+                    <div className="group bg-white p-5 rounded-3xl border border-stone-100 shadow-sm hover:shadow-md transition-all flex items-center gap-4">
                       <div className="w-14 h-14 bg-stone-50 rounded-2xl flex items-center justify-center text-stone-400 group-hover:bg-stone-900 group-hover:text-white transition-colors">
                         <CategoryIcon category={item.category} className="w-7 h-7" />
                       </div>
@@ -353,7 +354,7 @@ export default function App() {
                       >
                         <Trash2 className="w-5 h-5" />
                       </button>
-                    </motion.div>
+                    </div>
                     
                     {/* Insert ad after every 5 items */}
                     {(index + 1) % 5 === 0 && (
@@ -362,7 +363,7 @@ export default function App() {
                         <AdBanner slot="1234567890" className="rounded-2xl" />
                       </div>
                     )}
-                  </React.Fragment>
+                  </motion.div>
                 ))}
                 
                 {/* Final ad at the bottom if there are items */}
