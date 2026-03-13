@@ -79,6 +79,7 @@ const CategoryIcon = ({ category, className }: { category: string, className?: s
 export default function App() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [authError, setAuthError] = useState<string | null>(null);
   const [items, setItems] = useState<Item[]>([]);
   const [filter, setFilter] = useState<CategoryType>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -145,10 +146,16 @@ export default function App() {
   }, []);
 
   const handleLogin = async () => {
+    setAuthError(null);
     try {
       await signInWithPopup(auth, new GoogleAuthProvider());
-    } catch (error) {
+    } catch (error: any) {
       console.error("Login error:", error);
+      if (error.code === 'auth/unauthorized-domain') {
+        setAuthError("This domain is not authorized in Firebase. Please add it to 'Authorized Domains' in the Firebase Console.");
+      } else {
+        setAuthError(error.message || "An error occurred during sign in.");
+      }
     }
   };
 
@@ -237,6 +244,17 @@ export default function App() {
         <p className="text-stone-500 max-w-xs mb-12 leading-relaxed">
           The elegant way to track your warranties and expiration dates.
         </p>
+
+        {authError && (
+          <div className="mb-8 p-4 bg-red-50 border border-red-100 rounded-2xl text-red-600 text-sm max-w-xs animate-in fade-in slide-in-from-top-2">
+            <div className="flex items-center gap-2 mb-1 font-bold">
+              <AlertTriangle className="w-4 h-4" />
+              <span>Sign-in Error</span>
+            </div>
+            {authError}
+          </div>
+        )}
+
         <button 
           onClick={handleLogin}
           className="flex items-center gap-3 px-8 py-4 bg-stone-900 text-white rounded-full hover:bg-stone-800 transition-all active:scale-95 shadow-lg shadow-stone-200"
