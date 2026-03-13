@@ -575,6 +575,23 @@ export default function App() {
         isOpen={showPrivacyModal} 
         onClose={() => setShowPrivacyModal(false)} 
       />
+
+      {/* SEO Content (Visually Hidden) */}
+      <section className="sr-only">
+        <h2>Best AI Warranty Tracker and Expiry Date Manager</h2>
+        <p>
+          ExpiryGuard is the leading solution for managing your product warranties and expiration dates. 
+          Our AI-powered receipt scanner automatically extracts purchase dates and warranty periods, 
+          ensuring you never miss a claim. Whether it's electronics, medicine, or food, 
+          ExpiryGuard keeps your life organized and your products valid.
+        </p>
+        <ul>
+          <li>Scan receipts with AI to track warranties automatically.</li>
+          <li>Get alerts before your food or medicine expires.</li>
+          <li>Securely store digital copies of your receipts in the cloud.</li>
+          <li>Organize items by categories like Electronics, Food, and Cosmetics.</li>
+        </ul>
+      </section>
     </div>
   );
 }
