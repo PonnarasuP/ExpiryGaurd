@@ -1,0 +1,31 @@
+{
+  "entities": {
+    "Item": {
+      "title": "Item",
+      "description": "An item to track (electronics, medicine, food, or cosmetics)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "uid": { "type": "string", "description": "User ID of the owner" },
+        "name": { "type": "string", "description": "Name of the item" },
+        "category": { 
+          "type": "string", 
+          "enum": ["electronics", "medicine", "food", "cosmetics"],
+          "description": "Category of the item"
+        },
+        "expiryDate": { "type": "string", "format": "date", "description": "Expiration or warranty end date" },
+        "purchaseDate": { "type": "string", "format": "date", "description": "Date of purchase (optional)" },
+        "notes": { "type": "string", "description": "Additional notes" },
+        "imageUrl": { "type": "string", "description": "Optional image of the item or receipt" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "name", "category", "expiryDate", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/items/{itemId}": {
+      "schema": "Item",
+      "description": "Collection of items tracked by users"
+    }
+  }
+}

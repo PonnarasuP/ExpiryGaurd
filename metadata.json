@@ -1,0 +1,7 @@
+{
+  "name": "ExpiryGuard",
+  "description": "Smart tracker for warranties and expiration dates. Scan receipts or enter manually to stay on top of your electronics, medicines, food, and cosmetics.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
