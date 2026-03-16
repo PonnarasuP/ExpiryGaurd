@@ -416,6 +416,21 @@ export default function App() {
             </div>
           </div>
         </footer>
+
+        <PrivacyPolicy 
+          isOpen={showPrivacyModal} 
+          onClose={() => setShowPrivacyModal(false)} 
+        />
+
+        <TermsOfService
+          isOpen={showTermsModal}
+          onClose={() => setShowTermsModal(false)}
+        />
+
+        <ContactSupport
+          isOpen={showContactModal}
+          onClose={() => setShowContactModal(false)}
+        />
       </div>
     );
   }
@@ -700,7 +715,7 @@ export default function App() {
       </AnimatePresence>
 
       {/* Footer for AdSense Compliance */}
-      <footer className="max-w-xl mx-auto px-6 py-12 text-center">
+      <footer className="max-w-xl mx-auto px-6 py-12 text-center hidden md:block">
         <div className="flex flex-col items-center gap-4">
           <div className="flex items-center gap-4 text-[10px] uppercase tracking-widest font-bold text-stone-400">
             <button 
@@ -711,10 +726,17 @@ export default function App() {
             </button>
             <span className="w-1 h-1 bg-stone-200 rounded-full" />
             <button 
-              onClick={() => setShowPrivacyModal(true)} 
+              onClick={() => setShowTermsModal(true)} 
               className="hover:text-stone-900 transition-colors"
             >
               Terms of Service
+            </button>
+            <span className="w-1 h-1 bg-stone-200 rounded-full" />
+            <button 
+              onClick={() => setShowContactModal(true)} 
+              className="hover:text-stone-900 transition-colors"
+            >
+              Contact Support
             </button>
           </div>
           <p className="text-[10px] text-stone-300">
