@@ -18,7 +18,10 @@ import {
   Sparkles,
   Loader2,
   X,
-  ChevronRight
+  ChevronRight,
+  ScanLine,
+  Bell,
+  ShieldCheck
 } from 'lucide-react';
 import { 
   onAuthStateChanged, 
@@ -238,32 +241,177 @@ export default function App() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#FDFCFB] flex flex-col items-center justify-center p-6 text-center">
-        <div className="w-20 h-20 bg-stone-900 rounded-3xl flex items-center justify-center mb-8 shadow-2xl shadow-stone-200">
-          <Clock className="w-10 h-10 text-white" />
-        </div>
-        <h1 className="text-4xl font-serif italic mb-4 text-stone-900">ExpiryGuard</h1>
-        <p className="text-stone-500 max-w-xs mb-12 leading-relaxed">
-          The elegant way to track your warranties and expiration dates.
-        </p>
-
-        {authError && (
-          <div className="mb-8 p-4 bg-red-50 border border-red-100 rounded-2xl text-red-600 text-sm max-w-xs animate-in fade-in slide-in-from-top-2">
-            <div className="flex items-center gap-2 mb-1 font-bold">
-              <AlertTriangle className="w-4 h-4" />
-              <span>Sign-in Error</span>
+      <div className="min-h-screen bg-[#FDFCFB] text-stone-900 font-sans">
+        {/* Navigation */}
+        <nav className="p-6 flex justify-between items-center max-w-6xl mx-auto w-full">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-stone-900 rounded-lg flex items-center justify-center">
+              <Clock className="w-5 h-5 text-white" />
             </div>
-            {authError}
+            <span className="text-xl font-serif italic font-bold">ExpiryGuard</span>
           </div>
-        )}
+          <button 
+            onClick={handleLogin}
+            className="px-6 py-2 bg-stone-900 text-white rounded-full hover:bg-stone-800 transition-all text-sm font-medium"
+          >
+            Sign In
+          </button>
+        </nav>
 
-        <button 
-          onClick={handleLogin}
-          className="flex items-center gap-3 px-8 py-4 bg-stone-900 text-white rounded-full hover:bg-stone-800 transition-all active:scale-95 shadow-lg shadow-stone-200"
-        >
-          <LogIn className="w-5 h-5" />
-          <span className="font-medium">Sign in with Google</span>
-        </button>
+        {/* Hero Section */}
+        <div className="flex flex-col items-center justify-center px-6 py-20 text-center max-w-4xl mx-auto">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="w-20 h-20 bg-stone-900 rounded-3xl flex items-center justify-center mb-8 shadow-2xl shadow-stone-200"
+          >
+            <Clock className="w-10 h-10 text-white" />
+          </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-5xl md:text-6xl font-serif italic mb-6 text-stone-900 tracking-tight"
+          >
+            Never Miss an Expiry Again.
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-stone-500 text-xl max-w-2xl mb-12 leading-relaxed"
+          >
+            The elegant, AI-powered way to track your warranties, food, medicine, and more. 
+            Scan receipts and get smart alerts before it's too late.
+          </motion.p>
+
+          {authError && (
+            <div className="mb-8 p-4 bg-red-50 border border-red-100 rounded-2xl text-red-600 text-sm max-w-xs animate-in fade-in slide-in-from-top-2">
+              <div className="flex items-center gap-2 mb-1 font-bold">
+                <AlertTriangle className="w-4 h-4" />
+                <span>Sign-in Error</span>
+              </div>
+              {authError}
+            </div>
+          )}
+
+          <motion.button 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            onClick={handleLogin}
+            className="flex items-center gap-3 px-10 py-5 bg-stone-900 text-white rounded-full hover:bg-stone-800 transition-all active:scale-95 shadow-xl shadow-stone-200 text-lg font-medium"
+          >
+            <LogIn className="w-6 h-6" />
+            <span>Get Started for Free</span>
+          </motion.button>
+        </div>
+
+        {/* Features Grid */}
+        <section className="bg-white py-24 border-y border-stone-100">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-serif italic mb-4">Smart Features for a Smarter Life</h2>
+              <p className="text-stone-500">Everything you need to stay organized and save money.</p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-12">
+              <div className="space-y-4">
+                <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center">
+                  <ScanLine className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold">AI Receipt Scanning</h3>
+                <p className="text-stone-500 leading-relaxed">
+                  Simply upload a photo of your receipt. Our advanced AI automatically extracts product names, purchase dates, and warranty periods.
+                </p>
+              </div>
+              <div className="space-y-4">
+                <div className="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center">
+                  <Bell className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold">Smart Notifications</h3>
+                <p className="text-stone-500 leading-relaxed">
+                  Receive timely alerts before your items expire or warranties run out. Customize your notification preferences to stay informed.
+                </p>
+              </div>
+              <div className="space-y-4">
+                <div className="w-12 h-12 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center">
+                  <ShieldCheck className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold">Secure Cloud Storage</h3>
+                <p className="text-stone-500 leading-relaxed">
+                  Your data is safely stored in the cloud. Access your digital receipts and expiry list from any device, anytime.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* How it Works */}
+        <section className="py-24 bg-[#FDFCFB]">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-3xl font-serif italic mb-16 text-center">How ExpiryGuard Works</h2>
+            <div className="space-y-16">
+              <div className="flex flex-col md:flex-row gap-8 items-center">
+                <div className="w-16 h-16 bg-stone-900 text-white rounded-full flex items-center justify-center text-2xl font-serif italic shrink-0">1</div>
+                <div>
+                  <h4 className="text-xl font-bold mb-2">Snap or Upload</h4>
+                  <p className="text-stone-500">Take a photo of your receipt or product packaging. You can also manually enter details if you prefer.</p>
+                </div>
+              </div>
+              <div className="flex flex-col md:flex-row gap-8 items-center">
+                <div className="w-16 h-16 bg-stone-900 text-white rounded-full flex items-center justify-center text-2xl font-serif italic shrink-0">2</div>
+                <div>
+                  <h4 className="text-xl font-bold mb-2">AI Processing</h4>
+                  <p className="text-stone-500">Our system identifies the item, category, and critical dates. It organizes everything into your personal dashboard.</p>
+                </div>
+              </div>
+              <div className="flex flex-col md:flex-row gap-8 items-center">
+                <div className="w-16 h-16 bg-stone-900 text-white rounded-full flex items-center justify-center text-2xl font-serif italic shrink-0">3</div>
+                <div>
+                  <h4 className="text-xl font-bold mb-2">Stay Notified</h4>
+                  <p className="text-stone-500">Relax knowing ExpiryGuard is watching. We'll send you a nudge when something is about to expire.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="bg-white py-24 border-t border-stone-100">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="text-3xl font-serif italic mb-12 text-center">Frequently Asked Questions</h2>
+            <div className="space-y-8">
+              <div>
+                <h4 className="font-bold mb-2">Is ExpiryGuard free to use?</h4>
+                <p className="text-stone-500">Yes! Our basic features are free for everyone. We want to help you reduce waste and save money.</p>
+              </div>
+              <div>
+                <h4 className="font-bold mb-2">What kind of items can I track?</h4>
+                <p className="text-stone-500">You can track anything with a date! Electronics warranties, food expiration, medicine, cosmetics, and even subscription renewals.</p>
+              </div>
+              <div>
+                <h4 className="font-bold mb-2">How accurate is the AI scanner?</h4>
+                <p className="text-stone-500">Our AI is highly accurate at reading standard receipts. You can always review and edit the information before saving.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="py-12 bg-stone-900 text-stone-400 text-center border-t border-stone-800">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="flex items-center justify-center gap-2 mb-6">
+              <Clock className="w-6 h-6 text-white" />
+              <span className="text-xl font-serif italic text-white">ExpiryGuard</span>
+            </div>
+            <p className="mb-8 text-sm">© 2026 ExpiryGuard. All rights reserved. Helping you save time and money.</p>
+            <div className="flex justify-center gap-8 text-sm">
+              <button onClick={() => setShowPrivacyModal(true)} className="hover:text-white transition-colors">Privacy Policy</button>
+              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+              <a href="#" className="hover:text-white transition-colors">Contact Support</a>
+            </div>
+          </div>
+        </footer>
       </div>
     );
   }
