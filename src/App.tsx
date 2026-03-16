@@ -49,6 +49,8 @@ import { scanReceipt, ExtractedWarranty } from './services/geminiService';
 import { cn } from './lib/utils';
 import { AdBanner } from './components/AdBanner';
 import { PrivacyPolicy } from './components/PrivacyPolicy';
+import { TermsOfService } from './components/TermsOfService';
+import { ContactSupport } from './components/ContactSupport';
 
 // --- Types ---
 interface Item {
@@ -91,6 +93,8 @@ export default function App() {
   const [isScanning, setIsScanning] = useState(false);
   const [scanLoading, setScanLoading] = useState(false);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
+  const [showContactModal, setShowContactModal] = useState(false);
   
   // Form state
   const [newItem, setNewItem] = useState({
@@ -407,8 +411,8 @@ export default function App() {
             <p className="mb-8 text-sm">© 2026 ExpiryGuard. All rights reserved. Helping you save time and money.</p>
             <div className="flex justify-center gap-8 text-sm">
               <button onClick={() => setShowPrivacyModal(true)} className="hover:text-white transition-colors">Privacy Policy</button>
-              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-              <a href="#" className="hover:text-white transition-colors">Contact Support</a>
+              <button onClick={() => setShowTermsModal(true)} className="hover:text-white transition-colors">Terms of Service</button>
+              <button onClick={() => setShowContactModal(true)} className="hover:text-white transition-colors">Contact Support</button>
             </div>
           </div>
         </footer>
@@ -722,6 +726,16 @@ export default function App() {
       <PrivacyPolicy 
         isOpen={showPrivacyModal} 
         onClose={() => setShowPrivacyModal(false)} 
+      />
+
+      <TermsOfService
+        isOpen={showTermsModal}
+        onClose={() => setShowTermsModal(false)}
+      />
+
+      <ContactSupport
+        isOpen={showContactModal}
+        onClose={() => setShowContactModal(false)}
       />
 
       {/* SEO Content (Visually Hidden) */}
