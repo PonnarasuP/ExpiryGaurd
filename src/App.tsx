@@ -576,6 +576,17 @@ export default function App() {
             )}
           </AnimatePresence>
         </div>
+
+        {/* Pro Tips Section */}
+        <div className="mt-16 p-8 bg-stone-900 text-stone-100 rounded-3xl">
+          <h3 className="text-xl font-serif italic mb-4">ExpiryGuard Pro Tips</h3>
+          <ul className="space-y-4 text-stone-300 text-sm">
+            <li>• <strong>Scan Receipts Early:</strong> Don't wait! Scan your receipts immediately after purchase to ensure the AI captures the correct warranty information.</li>
+            <li>• <strong>Categorize Wisely:</strong> Use categories to quickly filter your items. Keeping electronics separate from food helps you manage different types of expiration cycles.</li>
+            <li>• <strong>Set Reminders:</strong> Check your items regularly. We recommend reviewing your 'expiring soon' items once a week to avoid missing any warranty claims or food spoilage.</li>
+            <li>• <strong>Keep Notes:</strong> Use the notes field to store serial numbers, store locations, or specific warranty claim procedures.</li>
+          </ul>
+        </div>
       </main>
 
       {/* Action Bar */}
